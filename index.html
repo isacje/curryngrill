@@ -1122,45 +1122,36 @@
 
   const formData = new FormData(form);
   const data = new URLSearchParams({
-      name: formData.get('name'),
-      mobile: formData.get('mobile'),
-      email: formData.get('email'),
-      message: formData.get('message'),
-      timestamp: new Date().toISOString()
-  });
-
-  try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbx3hgpMwNVOP09abYRkrabb0OeY5jhHNrQkZj5H9QxUx8pCOZbc-OGWrc1HvO0IPNmswA/exec', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: data
-      });
-
-      if (response.ok) {
-          successMessage.style.display = 'block';
-          btnText.textContent = 'Message Sent! ✓';
-          submitBtn.style.background = '#48bb78';
-
-          setTimeout(() => {
-              form.reset();
-              btnText.textContent = 'Send Message';
-              submitBtn.style.background = '';
-              submitBtn.disabled = false;
-              successMessage.style.display = 'none';
-          }, 3000);
-      } else {
-          throw new Error('Network error');
-      }
-  } catch (error) {
-      console.error('Error:', error);
-      errorMessage.style.display = 'block';
-      btnText.textContent = 'Try Again';
-      submitBtn.style.background = '#f56565';
-      submitBtn.disabled = false;
-  }
+    name: formData.get('name'),
+    mobile: formData.get('mobile'),
+    email: formData.get('email'),
+    message: formData.get('message'),
+    timestamp: new Date().toISOString()
 });
+
+const response = await fetch('https://script.google.com/macros/s/AKfycbx3hgpMwNVOP09abYRkrabb0OeY5jhHNrQkZj5H9QxUx8pCOZbc-OGWrc1HvO0IPNmswA/exec', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: data
+});
+
+if (response.ok) {
+    successMessage.style.display = 'block';
+    btnText.textContent = 'Message Sent! ✓';
+    submitBtn.style.background = '#48bb78';
+
+    setTimeout(() => {
+        form.reset();
+        btnText.textContent = 'Send Message';
+        submitBtn.style.background = '';
+        submitBtn.disabled = false;
+        successMessage.style.display = 'none';
+    }, 3000);
+} else {
+    // No error handling here, just silently ignore or you can add code
+}
 
 
 </script>
