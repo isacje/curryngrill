@@ -64,30 +64,30 @@
     // Fixed: Dynamic daily menu rotation
     const dailyMenus = [
         [
-            { item: "Fried Rice and Chilly Chicken", price: "$7.99" },
-            { item: "Vegetable Korma with Parata", price: "$7.99" }
+            { item: "Fried Rice and Chilly Chicken", price: "$9.99" },
+            { item: "Vegetable Korma with Parata", price: "$9.99" }
         ],
         [
-            { item: "Jeera Rice/White Rice and Chicken Curry", price: "$7.99" },
-            { item: "Chicken Curry with Parata", price: "$7.99" }
+            { item: "Jeera Rice/White Rice and Chicken Curry", price: "$9.99" },
+            { item: "Chicken Curry with Parata", price: "$9.99" }
         ],
         [
-            { item: "Yellow rice and Chicken Curry", price: "$7.99" },
-            { item: "Cabbage Mallum with Parata", price: "$7.99" }
+            { item: "Yellow rice and Chicken Curry", price: "$9.99" },
+            { item: "Cabbage Mallum with Parata", price: "$9.99" }
         ],
         [
-            { item: "Fried Rice with Butter Chicken", price: "$7.99" },
-            { item: "Salad with Parata", price: "$7.99" }
+            { item: "Fried Rice with Butter Chicken", price: "$9.99" },
+            { item: "Salad with Parata", price: "$9.99" }
         ],
         [
-            { item: "Jeera Rice/Noodles with Beef Fry", price: "$7.99" },
-            { item: "Egg Curry with Parata", price: "$7.99" },
+            { item: "Jeera Rice/Noodles with Beef Fry", price: "$9.99" },
+            { item: "Egg Curry with Parata", price: "$9.99" },
             { item: "Tempered Potatos", price: "$3.99" },
-            { item: "Jeera Rice with Vegetable Koruma", price: "$7.99" }
+            { item: "Jeera Rice with Vegetable Koruma", price: "$9.99" }
         ],
         [
-            { item: "Kottu Parata with Chicken Curry", price: "$7.99" },
-            { item: "Noodles with Chicken Curry", price: "$7.99" }
+            { item: "Kottu Parata with Chicken Curry", price: "$9.99" },
+            { item: "Noodles with Chicken Curry", price: "$9.99" }
         ]
     ];
 
@@ -150,15 +150,15 @@
     }
 
     // Initialize typing effect after load
-    window.addEventListener('load', function() {
-        const subtitle = document.querySelector('.hero-subtitle');
-        const originalText = subtitle?.textContent;
-        if (subtitle && originalText) {
-            setTimeout(() => {
-                typeWriter(subtitle, originalText, 30);
-            }, 1000);
-        }
-    });
+    // window.addEventListener('load', function() {
+    //     const subtitle = document.querySelector('.hero-subtitle');
+    //     const originalText = subtitle?.textContent;
+    //     if (subtitle && originalText) {
+    //         setTimeout(() => {
+    //             typeWriter(subtitle, originalText, 30);
+    //         }, 1000);
+    //     }
+    // });
 
     // Entrance animations
     window.addEventListener('load', function() {
@@ -276,3 +276,13 @@
       submitBtn.disabled = false;
   }
 });
+document.addEventListener("mousemove", (e) => {
+    const layers = document.querySelectorAll(".parallax-layer");
+    const x = (e.clientX / window.innerWidth - 0.5);
+    const y = (e.clientY / window.innerHeight - 0.5);
+
+    layers.forEach((layer, i) => {
+      const depth = (i + 1) * 20; // increase movement factor
+      layer.style.transform = `translate(${x * depth}px, ${y * depth}px) scale(1.05)`;
+    });
+  });

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="images/logo.png" type="image/x-icon" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curry and Grill</title>
@@ -33,12 +33,26 @@
 
     <!-- Hero Section -->
     <section id="hero">
-        <div class="hero-content">
-            <img id="herologo" src="images/logo.png" alt="Curry & Grill Logo">
-            <p class="hero-subtitle">Authentic Indo-American cuisine that ignites your senses</p>
-            <a href="#menu" class="cta-button">Explore Our Menu</a>
-        </div>
-    </section>
+  <div class="parallax-background">
+    <div class="parallax-layer layer-back"></div>
+    <div class="parallax-layer layer-mid"></div>
+    <div class="parallax-layer layer-front"></div>
+  </div>
+
+  <div class="hero-content">
+    <img id="herologo" src="images/logo.png" alt="Curry & Grill Logo">
+    <p class="hero-subtitle">Authentic Indo-American cuisine that ignites your senses</p>
+    <a href="#menu" class="cta-button">Explore Our Menu</a>
+  </div>
+  <div class="spice-mist">
+  <div class="mist-particle" style="top: 20%; left: 30%; animation: float 8s infinite;"></div>
+  <div class="mist-particle" style="top: 60%; left: 70%; animation: float 12s infinite;"></div>
+  <div class="mist-particle" style="top: 40%; left: 50%; animation: float 10s infinite;"></div>
+</div>
+
+</section>
+
+
 
     <!-- About Section -->
     <section id="about" class="fade-in">
@@ -63,7 +77,7 @@
                     <li>French Fries (small) <span class="price">$1.99</span></li>
                 </ul>
                 
-                <h4 style="margin-top: 2rem;">💰 Combo Special - $7.99</h4>
+                <h4 style="margin-top: 2rem;">💰 Combo Special - $9.99</h4>
                 <ul>
                     <li>✓ One Meat</li>
                     <li>✓ One Rice/Noodles</li>
@@ -85,6 +99,10 @@
                 </ul>
                 </div>
                 <div>
+                <h4><strong>Daily Special</strong></h4>
+                <ul id="daily">
+                    <li>Tandoori Chicken with Porotta<span class="price">$9.99</span></li>
+                </ul>
                 <h4><strong>Desserts</strong></h5>
                 <ul id="dessert">
                     <li>Banana Pudding<span class="price">$1.99</span></li>
@@ -99,14 +117,35 @@
 
     <!-- Gallery Section -->
     <section id="gallery" class="fade-in">
-        <h3>Food Gallery</h3>
+        <h3>Gallery</h3>
         <div class="gallery-grid">
-            <div class="gallery-item">🌶️ Spicy Curry Delights</div>
-            <div class="gallery-item">🔥 Grilled Perfection</div>
-            <div class="gallery-item">🍽️ Fusion Favorites</div>
-            <div class="gallery-item">🥬 Fresh Ingredients</div>
-            <div class="gallery-item">👨‍🍳 Chef's Specialties</div>
-            <div class="gallery-item">🍮 Sweet Endings</div>
+            <div class="gallery-item">
+            <img src="images/front.jpg" alt="Our Store>
+            <div class="gallery-caption">Our Store</div>
+            <div class="gallery-item">
+            <img src="images/counter.jpg" alt="Counter>
+            <div class="gallery-caption">Our Store</div>
+            <div class="gallery-item">
+            <img src="images/insideleft.jpg" alt="Our Store>
+            <div class="gallery-caption">Our Store</div>
+            <div class="gallery-item">
+            <img src="images/insideright.jpg" alt="Our Store>
+            <div class="gallery-caption">Our Store</div>
+            <div class="gallery-item">
+            <img src="images/soda.jpg" alt="Our Store>
+            <div class="gallery-caption">Our Store</div>
+            <div class="gallery-item">
+            <img src="images/counter.jpg" alt="Our Store>
+            <div class="gallery-caption">Our Store</div>
+            <div class="gallery-item">
+            <img src="images/kitfront.jpg" alt="Kitchen>
+            <div class="gallery-caption">Our Kitchen</div>
+            <div class="gallery-item">
+            <img src="images/prep.jpg" alt="Our Store>
+            <div class="gallery-caption">Our Store</div>
+            <div class="gallery-item">
+            <img src="images/stove.jpg" alt="Our Store>
+            <div class="gallery-caption">Our Store</div>
         </div>
     </section>
 
@@ -117,8 +156,8 @@
             <div class="contact-info">
                 <p><span>📞 :</span> +1-910-366-7561</p>
                 <p><span>📍 :</span> 2064 Strickland Bridge Rd<br>Fayetteville, NC 28304</p>
-                <p><span>🕒 :</span> Mon-Sun 11AM - 10PM</p>
-                <p><span>🌟 :</span> 4.8/5 Stars (Google Reviews)</p>
+                <p><span>🕒 :</span> Mon-Sat 11AM - 10PM</p>
+                <!-- <p><span>🌟 :</span> 4.8/5 Stars (Google Reviews)</p> -->
                 
                 <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d242.52211803953242!2d-79.00960731913186!3d35.015054309053475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sus!4v1749005949726!5m2!1sen!2sus" 
@@ -200,10 +239,12 @@
                     </svg>
                 </a>
                 
-                <a href="https://yelp.com" target="_blank" rel="noopener" class="social-link" title="Yelp">
-                    <svg class="social-icon" viewBox="0 0 24 24">
+                <a href="https://www.yelp.com/biz/curry-and-grill-cary?osq=curry+and+grill" target="_blank" rel="noopener" class="social-link" title="Yelp">
+                    <img src="images/yelp_burst.png" alt="Yelp Burst" class="social-icon" />
+
+                    <!-- <svg class="social-icon" viewBox="0 0 24 24">
                         <path fill="#FF1A1A" d="M21.111 18.226c-.141.969-2.119 3.483-3.029 3.642-.311.053-.611-.23-1.158-1.192-.438-.77-2.115-3.683-2.478-4.357-.302-.561-.248-.979.064-1.229.356-.285 2.023-.467 2.715-.514 1.049-.071 3.617.104 3.886 3.65zm-4.292-12.069c.916-.441 2.716-.916 3.439-.694.959.295 2.971 2.535 3.103 3.511.045.332-.186.686-1.098 1.437-.731.603-3.428 2.831-4.074 3.264-.538.361-.994.329-1.307.012-.356-.361-.611-2.115-.679-2.82-.102-1.072.168-3.688 3.616-3.71z"/>
-                    </svg>
+                    </svg> -->
                 </a>
                 
                 <a href="https://www.google.com/maps" target="_blank" rel="noopener" class="social-link" title="Google Reviews">

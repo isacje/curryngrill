@@ -47,7 +47,7 @@
             }
 
             .logo img {
-                height: 50px;
+                height: 100px;
                 transition: transform 0.3s ease;
             }
 
@@ -123,9 +123,8 @@
             }
 
             .hero-content {
-                position: relative;
-                z-index: 2;
-                animation: fadeInUp 1s ease;
+            position: relative;
+            z-index: 5;
             }
 
             #herologo {
@@ -262,51 +261,72 @@
 
             /* Gallery Section */
             #gallery {
-                background: var(--bg-light);
+            background: var(--bg-light);
+            padding: 3rem 1rem;
             }
 
             .gallery-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 2rem;
-                margin-top: 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
             }
 
             .gallery-item {
-                height: 200px;
-                background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
-                border-radius: var(--border-radius);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: white;
-                font: 600 1.1rem/1 inherit;
-                text-align: center;
-                transition: var(--transition);
-                cursor: pointer;
-                position: relative;
-                overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            }
+
+            .gallery-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            border-radius: var(--border-radius);
+            display: block;
+            }
+
+            .gallery-caption {
+            position: relative;
+            z-index: 2;
+            color: white;
+            font: 600 1.1rem/1 inherit;
+            text-align: center;
+            padding: 0 1rem;
             }
 
             .gallery-item::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: -100%;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-                transition: left 0.5s ease;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+            z-index: 3;
             }
 
             .gallery-item:hover::before {
-                left: 100%;
+            left: 100%;
             }
 
             .gallery-item:hover {
-                transform: scale(1.05);
-                box-shadow: var(--shadow-hover);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-hover);
             }
+
 
             /* Contact Section */
             .contact-content {
@@ -657,4 +677,63 @@
                     font-size: 24px;
                     text-align: center;
                 }
+            }
+            .parallax-background {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            perspective: 800px;
+            z-index: 0;
+            overflow: hidden;
+            }
+
+            .parallax-layer {
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            top: -10%;
+            left: -10%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            transition: transform 0.2s ease-out;
+            will-change: transform;
+            }
+
+            .layer-back {
+            background: linear-gradient(135deg, #ff6f00, #ff8f00); /* rich orange */
+            z-index: 1;
+            opacity: 1;
+            }
+
+            .layer-mid {
+            background-image: url('https://www.transparenttextures.com/patterns/purty-wood.png');
+            background-color: rgba(255, 153, 51, 0.2);
+            mix-blend-mode: overlay;
+            opacity: 0.3;
+            z-index: 2;
+            }
+
+            .layer-front {
+            background: radial-gradient(circle at 50% 50%, rgba(255, 200, 0, 0.2), rgba(255, 140, 0, 0.05));
+            z-index: 3;
+            }
+            .spice-mist {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 4;
+            }
+
+            .mist-particle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 200, 100, 0.15);
+            border-radius: 50%;
+            filter: blur(8px);
+            }
+
+            @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-40px) scale(1.1); }
+            100% { transform: translateY(0) scale(1); }
             }
