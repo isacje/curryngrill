@@ -87,31 +87,13 @@
             </div>
             
             <div class="menu-section">
-                <h4><strong>🌶️ Today's Special</strong></h4>
-                <ul id="daily-menu" class="menu-section"></ul>
-                <br>
-                <div>
-                <h4><strong>Add Ons</strong></h4>
-                <ul id="add-ons">
-                    <li>Sri Lankan Egg Rolls<span class="price">$1.99</span></li>
-                    <li>Sri Lankan Fish Rolls<span class="price">$1.99</span></li>
-                    <li>Drink<span class="price">$1.99</span></li>
+                <h4><strong>🌶️ Today's Menu</strong></h4>
+                <ul id="todays-menu">
+                    <!-- Dynamic menu items will be loaded here from Firebase -->
+                    <li class="loading-item">Loading today's menu...</li>
                 </ul>
-                </div>
-                <div>
-                <h4><strong>Daily Special</strong></h4>
-                <ul id="daily">
-                    <li>Tandoori Chicken with Porotta<span class="price">$9.99</span></li>
-                </ul>
-                <h4><strong>Desserts</strong></h5>
-                <ul id="dessert">
-                    <li>Banana Pudding<span class="price">$1.99</span></li>
-                    <li>Strawberry Tres Leches<span class="price">$1.99</span></li>
-                    <li>Cupcakes<span class="price">$1.99</span></li>
-                    <li>Chocolate Cake<span class="price">$1.99</span></li>
-                </ul>
-                </div>
             </div>
+
         </div>
     </section>
 
@@ -120,32 +102,41 @@
         <h3>Gallery</h3>
         <div class="gallery-grid">
             <div class="gallery-item">
-            <img src="images/front.jpg" alt="Our Store>
-            <div class="gallery-caption">Our Store</div>
+            <img src="images/front.jpg" alt="Our Store">
+            <!-- <div class="gallery-caption">Our Store</div> -->
+            </div>
             <div class="gallery-item">
-            <img src="images/counter.jpg" alt="Counter>
-            <div class="gallery-caption">Our Store</div>
+            <img src="images/counter.jpg" alt="Counter">
+            <!-- <div class="gallery-caption">Our Store</div> -->
+            </div>
             <div class="gallery-item">
-            <img src="images/insideleft.jpg" alt="Our Store>
-            <div class="gallery-caption">Our Store</div>
+            <img src="images/insideleft.jpg" alt="Our Store">
+            <!-- <div class="gallery-caption">Our Store</div> -->
+            </div>
             <div class="gallery-item">
-            <img src="images/insideright.jpg" alt="Our Store>
-            <div class="gallery-caption">Our Store</div>
+            <img src="images/insideright.jpg" alt="Our Store">
+            <!-- <div class="gallery-caption">Our Store</div> -->
+            </div>
             <div class="gallery-item">
-            <img src="images/soda.jpg" alt="Our Store>
-            <div class="gallery-caption">Our Store</div>
+            <img src="images/soda.jpg" alt="Our Store">
+            <!-- <div class="gallery-caption">Our Store</div> -->
+            </div>
             <div class="gallery-item">
-            <img src="images/counter.jpg" alt="Our Store>
-            <div class="gallery-caption">Our Store</div>
+            <img src="images/counter.jpg" alt="Our Store">
+            <!-- <div class="gallery-caption">Our Store</div> -->
+            </div>
             <div class="gallery-item">
-            <img src="images/kitfront.jpg" alt="Kitchen>
-            <div class="gallery-caption">Our Kitchen</div>
+            <img src="images/kitfront.jpg" alt="Kitchen">
+            <!-- <div class="gallery-caption">Our Kitchen</div> -->
+            </div>
             <div class="gallery-item">
-            <img src="images/prep.jpg" alt="Our Store>
-            <div class="gallery-caption">Our Store</div>
+            <img src="images/prep.jpg" alt="Our Store">
+            <!-- <div class="gallery-caption">Our Store</div> -->
+            </div>
             <div class="gallery-item">
-            <img src="images/stove.jpg" alt="Our Store>
-            <div class="gallery-caption">Our Store</div>
+            <img src="images/stove.jpg" alt="Our Store">
+            <!-- <div class="gallery-caption">Our Store</div> -->
+            </div>
         </div>
     </section>
 
@@ -264,8 +255,11 @@
         <p>© 2025 Curry and Grill. All rights reserved. | Crafted with ❤️ for food lovers</p>
     </footer>
 
+    <!-- Firebase SDK v8 (Compatibility Mode) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.22.0/firebase-app-compat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.22.0/firebase-firestore-compat.min.js"></script>
+    
     <script src="script.js"></script>
-
 
 </body>
 </html>

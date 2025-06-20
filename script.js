@@ -1,5 +1,203 @@
 // Smooth scrolling for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+// Firebase Configuration (same as admin.js)
+    const firebaseConfig = {
+        apiKey: "AIzaSyBmBjfRoYN8Oj2IK4XpjTONpoRIwfW9WIY",
+        authDomain: "curryandgrill-c043d.firebaseapp.com",
+        projectId: "curryandgrill-c043d",
+        storageBucket: "curryandgrill-c043d.firebasestorage.app",
+        messagingSenderId: "1063394384724",
+        appId: "1:1063394384724:web:19cb1b6a1b596855c186c1",
+        measurementId: "G-X8XLVPFRNP"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // DOM Content Loaded Event
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mobile menu functionality
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const nav = document.querySelector('nav ul');
+        
+        if (mobileMenu) {
+            mobileMenu.addEventListener('click', function() {
+                nav.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        const navLinks = document.querySelectorAll('nav a[href^="#"]');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    nav.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        const fadeElements = document.querySelectorAll('.fade-in');
+        fadeElements.forEach(el => observer.observe(el));
+
+        // Gallery functionality
+        const galleryItems = document.querySelectorAll('.gallery-item img');
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Create modal overlay
+                const modal = document.createElement('div');
+                modal.className = 'gallery-modal';
+                modal.innerHTML = `
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <img src="${this.src}" alt="${this.alt}">
+                        <div class="modal-caption">${this.nextElementSibling.textContent}</div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                modal.style.display = 'flex';
+                
+                // Close modal functionality
+                const closeBtn = modal.querySelector('.close-modal');
+                closeBtn.addEventListener('click', () => {
+                    document.body.removeChild(modal);
+                });
+                
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        document.body.removeChild(modal);
+                    }
+                });
+            });
+        });
+
+        // Contact form functionality
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+                
+                // Show loading state
+                const submitBtn = this.querySelector('.submit-btn');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<span class="btn-text">Sending...</span>';
+                submitBtn.disabled = true;
+                
+                // Simulate form submission (replace with actual form submission logic)
+                setTimeout(() => {
+                    // Show success message
+                    document.getElementById('successMessage').classList.add('show');
+                    
+                    // Reset form
+                    this.reset();
+                    
+                    // Reset button
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        document.getElementById('successMessage').classList.remove('show');
+                    }, 5000);
+                }, 1000);
+            });
+        }
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            
+            const heroSection = document.getElementById('hero');
+            if (heroSection) {
+                heroSection.style.transform = `translateY(${rate}px)`;
+            }
+            
+            // Parallax layers
+            const layers = document.querySelectorAll('.parallax-layer');
+            layers.forEach((layer, index) => {
+                const speed = (index + 1) * 0.2;
+                layer.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Load dynamic menu items from Firebase
+        loadDailyMenu();
+    });
+
+    // Function to load daily menu items from Firebase
+    async function loadDailyMenu() {
+        const dailyMenuContainer = document.getElementById('todays-menu');
+        
+        if (!dailyMenuContainer) {
+            console.log('Daily menu container not found');
+            return;
+        }
+
+        try {
+            // Show loading state
+            dailyMenuContainer.innerHTML = '<li class="loading-item">Loading today\'s specials...</li>';
+            
+            // Fetch menu items from Firebase
+            const snapshot = await db.collection('menu').get();
+            
+            // Clear loading state
+            dailyMenuContainer.innerHTML = '';
+            
+            if (snapshot.empty) {
+                dailyMenuContainer.innerHTML = '<li class="no-items">No special items available today</li>';
+                return;
+            }
+            
+            // Display menu items
+            snapshot.forEach(doc => {
+                const item = doc.data();
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `${item.item} <span class="price">$${item.price}</span>`;
+                dailyMenuContainer.appendChild(listItem);
+            });
+            
+        } catch (error) {
+            console.error('Error loading menu items:', error);
+            dailyMenuContainer.innerHTML = '<li class="error-item">Unable to load today\'s specials</li>';
+        }
+    }
+
+    // Function to refresh menu (can be called externally if needed)
+    function refreshMenu() {
+        loadDailyMenu();
+    }
+
+    // Auto-refresh menu every 5 minutes (optional)
+    setInterval(refreshMenu, 5 * 60 * 1000);
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
