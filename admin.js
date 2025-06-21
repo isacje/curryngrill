@@ -53,11 +53,61 @@ function initializeDateDisplay() {
     currentDay = dayName.toLowerCase();
 }
 
+// Check if day has changed and clear menu if needed
+async function checkDayChange() {
+    try {
+        // Get current day
+        const now = new Date();
+        const today = now.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
+        
+        // Get stored day from Firebase
+        const dayDoc = await db.collection('system').doc('currentDay').get();
+        const storedDay = dayDoc.exists ? dayDoc.data().day : null;
+        
+        // If day has changed, clear all menu items
+        if (storedDay && storedDay !== today) {
+            console.log(`Day changed from ${storedDay} to ${today}. Clearing menu items...`);
+            await clearAllMenuItems();
+            showAlert('menuAlert', `New day detected! All menu items have been cleared for ${today}.`, 'info');
+        }
+        
+        // Update the stored day
+        await db.collection('system').doc('currentDay').set({
+            day: today,
+            lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        
+        currentDay = today;
+        
+    } catch (error) {
+        console.error('Error checking day change:', error);
+    }
+}
+
+// Clear all menu items (internal function)
+async function clearAllMenuItems() {
+    try {
+        const snapshot = await db.collection('menu').get();
+        const batch = db.batch();
+        
+        snapshot.forEach(doc => {
+            batch.delete(doc.ref);
+        });
+        
+        await batch.commit();
+        console.log('All menu items cleared due to day change');
+    } catch (error) {
+        console.error('Error clearing menu items:', error);
+        throw error;
+    }
+}
+
 // Authentication State Observer
-auth.onAuthStateChanged(user => {
+auth.onAuthStateChanged(async user => {
     if (user) {
         showAdminSection();
         initializeDateDisplay();
+        await checkDayChange(); // Check for day change before loading menu
         loadMenuItems();
     } else {
         showLoginSection();
@@ -226,19 +276,12 @@ async function deleteMenuItem(itemId) {
     }
 }
 
-// Bulk Operations
+// Bulk Operations (manual clear all)
 async function clearAllItems() {
     if (!confirm(`Are you sure you want to clear all menu items? This action cannot be undone.`)) return;
     
     try {
-        const snapshot = await db.collection('menu').get();
-        const batch = db.batch();
-        
-        snapshot.forEach(doc => {
-            batch.delete(doc.ref);
-        });
-        
-        await batch.commit();
+        await clearAllMenuItems();
         showAlert('menuAlert', `All menu items cleared successfully!`, 'success');
         loadMenuItems();
     } catch (error) {
@@ -247,10 +290,25 @@ async function clearAllItems() {
     }
 }
 
+// Periodic day check (every 30 minutes)
+function startDayChangeMonitor() {
+    setInterval(async () => {
+        if (auth.currentUser) {
+            await checkDayChange();
+            if (currentMenuItems.length > 0) {
+                loadMenuItems(); // Refresh menu items if they were cleared
+            }
+        }
+    }, 30 * 60 * 1000); // Check every 30 minutes
+}
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize date display immediately
     initializeDateDisplay();
+    
+    // Start monitoring for day changes
+    startDayChangeMonitor();
     
     // Add event listeners for bulk operations if buttons exist
     const clearAllBtn = document.getElementById('clearAllBtn');
